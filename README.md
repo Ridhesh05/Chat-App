@@ -1,135 +1,183 @@
-# Turborepo starter
+# Real-time Chat Application
 
-This Turborepo starter is maintained by the Turborepo core team.
+A modern real-time chat application built with Next.js, Socket.IO, and TypeScript, containerized with Docker.
 
-## Using this example
+## 🚀 Features
 
-Run the following command:
+- **Real-time messaging** with Socket.IO
+- **Room-based chat** with user management
+- **Modern UI** with Next.js and CSS modules
+- **TypeScript** for type safety
+- **Docker** containerization
+- **Monorepo** structure with Turborepo
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 📁 Project Structure
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+my-monorepo/
+├── apps/
+│   ├── web/          # Next.js frontend
+│   ├── server/       # Node.js Socket.IO server
+│   └── docs/         # Next.js documentation
+├── packages/
+│   ├── ui/           # Shared UI components
+│   ├── eslint-config/
+│   └── typescript-config/
+├── docker-compose.yml
+└── run.sh
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🛠️ Quick Start
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+### Option 1: Local Development (Recommended)
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+# Start all services locally
+./start-local.sh
 ```
 
-### Develop
+This will:
+- Install dependencies
+- Build all applications
+- Start Redis (if available)
+- Start the Socket.IO server
+- Start the web application
+- Start the documentation site
 
-To develop all apps and packages, run the following command:
+### Option 2: Docker Development
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+```bash
+# Make sure Docker is running, then:
+./run.sh docker
 ```
 
-### Remote Caching
+### Option 3: Manual Development
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+```bash
+# Install dependencies
+yarn install
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# Start development servers
+yarn dev
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## 🌐 Access Your Application
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Once running, you can access:
 
+- **Web App**: http://localhost:3000
+- **Server**: http://localhost:8000
+- **Docs**: http://localhost:3001
+
+## 🐳 Docker Commands
+
+```bash
+# Build Docker images
+./run.sh build
+
+# Start with Docker
+./run.sh docker
+
+# Stop Docker services
+./run.sh stop
+
+# View logs
+./run.sh logs
+
+# Clean Docker resources
+./run.sh clean
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+## 🧪 Testing the Application
+
+1. **Open the web app** at http://localhost:3000
+2. **Enter your name** and a **room ID**
+3. **Click "Join Room"** to start chatting
+4. **Open another browser tab** and join the same room to test real-time messaging
+
+## 📝 Development
+
+### Available Scripts
+
+```bash
+# Development
+yarn dev              # Start all development servers
+yarn build            # Build all applications
+yarn lint             # Run linting
+yarn check-types      # Run type checking
+
+# Individual apps
+yarn dev --filter=web     # Start only web app
+yarn dev --filter=server  # Start only server
+yarn dev --filter=docs    # Start only docs
 ```
 
-## Useful Links
+### Project Structure
 
-Learn more about the power of Turborepo:
+- **Web App** (`apps/web`): Next.js frontend with Socket.IO client
+- **Server** (`apps/server`): Node.js backend with Socket.IO server
+- **Docs** (`apps/docs`): Next.js documentation site
+- **Packages**: Shared configurations and UI components
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+## 🔧 Configuration
+
+### Environment Variables
+
+Create `.env.local` files for each app:
+
+```bash
+# apps/web/.env.local
+NEXT_PUBLIC_SOCKET_URL=http://localhost:8000
+
+# apps/server/.env.local
+PORT=8000
+REDIS_URL=redis://localhost:6379
+NODE_ENV=development
+```
+
+### Docker Configuration
+
+- **Multi-stage builds** for optimization
+- **Health checks** for all services
+- **Volume management** for development
+- **Network isolation** between services
+
+## 🚀 Deployment
+
+### Production with Docker
+
+```bash
+# Build production images
+docker-compose build
+
+# Start production services
+docker-compose up -d
+```
+
+### Manual Production
+
+```bash
+# Build all applications
+yarn build
+
+# Start production servers
+yarn start
+```
+
+## 🆘 Troubleshooting
+
+### Common Issues
+
+1. **Port already in use**: Stop other services using ports 3000, 3001, or 8000
+2. **Docker not running**: Start Docker Desktop before running Docker commands
+3. **Redis connection issues**: Install Redis or use Docker for Redis
+
+### Getting Help
+
+- Check the logs: `./run.sh logs`
+- Verify services: `curl http://localhost:3000` and `curl http://localhost:8000/health`
+- Restart services: `./run.sh stop && ./run.sh docker`
+
+## 📄 License
+
+This project is licensed under the MIT License.

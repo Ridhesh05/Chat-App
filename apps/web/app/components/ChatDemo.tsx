@@ -8,6 +8,7 @@ const ChatDemo: React.FC = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [roomId, setRoomId] = useState("general");
+  const [username, setUsername] = useState("User" + Math.random().toString(36).substr(2, 9));
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -22,7 +23,7 @@ const ChatDemo: React.FC = () => {
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputMessage.trim() && isConnected) {
-      sendMessage(roomId, inputMessage.trim());
+      sendMessage(roomId, inputMessage.trim(), username);
       setInputMessage("");
       setIsTyping(false);
     }
@@ -99,13 +100,13 @@ const ChatDemo: React.FC = () => {
             <div className="flex items-center space-x-2">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Online:</span>
               <div className="flex flex-wrap gap-2">
-                {connectedUsers.map((userId) => (
+                {connectedUsers.map((user) => (
                   <div
-                    key={userId}
+                    key={user.socketId}
                     className="flex items-center space-x-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 text-xs rounded-full"
                   >
                     <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <span>{userId.slice(0, 8)}...</span>
+                    <span>{user.username}</span>
                   </div>
                 ))}
               </div>

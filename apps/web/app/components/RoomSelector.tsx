@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
 
 const RoomSelector: React.FC = () => {
-  const { joinRoom, currentRoom, isConnected } = useSocket();
+  const { joinRoom, currentRoom, currentUsername, isConnected } = useSocket();
   const [newRoomName, setNewRoomName] = useState("");
   const [hoveredRoom, setHoveredRoom] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -49,15 +49,15 @@ const RoomSelector: React.FC = () => {
   ];
 
   const handleJoinRoom = (roomId: string) => {
-    if (isConnected) {
-      joinRoom(roomId);
+    if (isConnected && currentUsername) {
+      joinRoom(roomId, currentUsername);
     }
   };
 
   const handleCreateRoom = () => {
-    if (newRoomName.trim() && isConnected) {
+    if (newRoomName.trim() && isConnected && currentUsername) {
       const roomId = newRoomName.toLowerCase().replace(/\s+/g, "-");
-      joinRoom(roomId);
+      joinRoom(roomId, currentUsername);
       setNewRoomName("");
     }
   };

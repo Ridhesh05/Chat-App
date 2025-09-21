@@ -16,7 +16,7 @@ interface Room {
 }
 
 const RoomDisplay: React.FC = () => {
-  const { joinRoom, currentRoom, messages, isConnected } = useSocket();
+  const { joinRoom, currentRoom, currentUsername, messages, isConnected } = useSocket();
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [roomMessages, setRoomMessages] = useState<any[]>([]);
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -112,9 +112,9 @@ const RoomDisplay: React.FC = () => {
   }, [selectedRoom, messages]);
 
   const handleRoomClick = (roomId: string) => {
-    if (isConnected) {
+    if (isConnected && currentUsername) {
       setSelectedRoom(roomId);
-      joinRoom(roomId);
+      joinRoom(roomId, currentUsername);
     }
   };
 

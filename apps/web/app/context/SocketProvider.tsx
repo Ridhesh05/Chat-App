@@ -93,7 +93,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
       if (data.roomId) {
         setConnectedUsers(prev => {
           const existingUser = prev.find(u => u.socketId === data.socketId && u.roomId === data.roomId);
-          if (!existingUser) {
+          if (!existingUser && data.roomId) {
             return [...prev, { socketId: data.socketId, username: data.username, roomId: data.roomId }];
           }
           return prev;

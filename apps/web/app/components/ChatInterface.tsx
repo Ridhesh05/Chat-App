@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
 
 const ChatInterface: React.FC = () => {
-  const { sendMessage, messages, connectedUsers, isConnected, currentRoom, leaveRoom } = useSocket();
+  const { sendMessage, messages, connectedUsers, isConnected, currentRoom, currentUsername, leaveRoom } = useSocket();
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -24,8 +24,8 @@ const ChatInterface: React.FC = () => {
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputMessage.trim() && isConnected && currentRoom) {
-      sendMessage(currentRoom, inputMessage.trim());
+    if (inputMessage.trim() && isConnected && currentRoom && currentUsername) {
+      sendMessage(currentRoom, inputMessage.trim(), currentUsername);
       setInputMessage("");
       setIsTyping(false);
     }
@@ -48,8 +48,8 @@ const ChatInterface: React.FC = () => {
   };
 
   const handleLeaveRoom = () => {
-    if (currentRoom) {
-      leaveRoom(currentRoom);
+    if (currentRoom && currentUsername) {
+      leaveRoom(currentRoom, currentUsername);
     }
   };
 
